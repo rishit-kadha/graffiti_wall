@@ -146,7 +146,6 @@ const Gallery = ({ type }: GalleryProps) => {
       <div className="gallery-grid">
         {tiles.map((tile) => {
           const liked = likedIds.has(tile.id);
-          const pending = inFlight.current.has(tile.id);
           return (
             <div key={tile.id} className="gallery-tile">
               <img
