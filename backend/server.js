@@ -37,7 +37,7 @@ cron.schedule("0 0 * * *", () => {
   console.log(`[cron] new day started: ${getToday()}`);
 });
 
-app.get("/api/tiles", async (req, res) => {
+app.get("/tiles", async (req, res) => {
   try {
     const limit = Math.min(parseInt(req.query.limit) || 20, 100);
     const offset = parseInt(req.query.offset) || 0;
@@ -55,7 +55,7 @@ app.get("/api/tiles", async (req, res) => {
   }
 });
 
-app.get("/api/tiles/:type", async (req, res) => {
+app.get("/tiles/:type", async (req, res) => {
   try {
     const { type } = req.params;
 
@@ -70,7 +70,7 @@ app.get("/api/tiles/:type", async (req, res) => {
   }
 });
 
-app.post("/api/publish", async (req, res) => {
+app.post("/publish", async (req, res) => {
   try {
     const { imageUrl, type, sessionId: bodySessionId } = req.body;
     const sessionId = bodySessionId || req.sessionId;
@@ -104,7 +104,7 @@ app.post("/api/publish", async (req, res) => {
   }
 });
 
-app.post("/api/like", async (req, res) => {
+app.post("/like", async (req, res) => {
   try {
     const { tileId, sessionId: bodySessionId } = req.body;
 
@@ -139,7 +139,7 @@ app.post("/api/like", async (req, res) => {
   }
 });
 
-app.get("/api/challenge/today", (req, res) => {
+app.get("/challenge/today", (req, res) => {
   try {
     res.json(getTodayChallenge(getToday()));
   } catch (err) {
@@ -148,7 +148,7 @@ app.get("/api/challenge/today", (req, res) => {
   }
 });
 
-app.get("/api/challenge/status", async (req, res) => {
+app.get("/challenge/status", async (req, res) => {
   try {
     const today = getToday();
     const sessionId = req.query.sessionId || req.sessionId;
