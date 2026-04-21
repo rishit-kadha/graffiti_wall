@@ -1,6 +1,8 @@
 
 
 require("dotenv").config();
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const fs = require("fs");
 const mongoose = require("mongoose");
 const Tile = require("./models/Tile");
@@ -72,7 +74,7 @@ async function migrate() {
 }
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("[mongo] connected");
     await migrate();
