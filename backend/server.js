@@ -21,7 +21,14 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-const getToday = () => new Date().toISOString().split("T")[0];
+const getToday = () => {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+};
 
 app.use((req, res, next) => {
   let sessionId = req.cookies.sessionId;
@@ -35,6 +42,8 @@ app.use((req, res, next) => {
 
 cron.schedule("0 0 * * *", () => {
   console.log(`[cron] new day started: ${getToday()}`);
+}, {
+  timezone: "Asia/Kolkata"
 });
 
 app.get("/tiles", async (req, res) => {
