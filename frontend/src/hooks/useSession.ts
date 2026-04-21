@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useCookies } from "react-cookie";
 
 export function setSessionId() {
-  const [cookies, setCookie, removeCookie] = useCookies(["graffiti-session"]);
+  const [cookies, setCookie] = useCookies(["graffiti-session"]);
   if (!cookies["graffiti-session"]) {
     const newSessionId = uuidv4();
     setCookie("graffiti-session", newSessionId, {

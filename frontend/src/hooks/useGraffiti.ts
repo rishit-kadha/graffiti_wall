@@ -58,24 +58,6 @@ export const useGraffiti = () => {
     ctx.fillRect(0, 0, rect.width, rect.height);
   }, []);
 
-  const drawStroke = (
-    ctx: CanvasRenderingContext2D,
-    points: Point[],
-    strokeColor: string,
-    strokeSize: number,
-    isEraser: boolean,
-  ) => {
-    if (points.length < 2) return;
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    points.slice(1).forEach((p) => ctx.lineTo(p.x, p.y));
-    ctx.strokeStyle = isEraser ? "#ffffff" : strokeColor;
-    ctx.lineWidth   = strokeSize;
-    ctx.lineCap     = "round";
-    ctx.lineJoin    = "round";
-    ctx.stroke();
-  };
-
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
