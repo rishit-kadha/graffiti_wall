@@ -260,6 +260,12 @@ button.btn-active {
   gap: 5px;
 }
 
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
 .btn-like:hover:not(:disabled) {
   border-color: #e5405080;
   color: #e54050;
@@ -271,6 +277,7 @@ button.btn-active {
   color: #e54050;
   background: #e5405010;
   font-weight: 600;
+  animation: heart-pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .modal-overlay {

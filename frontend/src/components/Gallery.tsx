@@ -5,6 +5,7 @@ type Tile = {
   imageUrl: string;
   type: "free" | "prompt";
   likes: number;
+  likedBy?: string[];
 };
 
 type GalleryProps = {
@@ -52,7 +53,19 @@ const Gallery = ({ type }: GalleryProps) => {
       if (!res.ok) return;
 
       const data = await res.json();
-      setTiles([...data].sort((a, b) => b.likes - a.likes));
+      setTiles([...data].sort((a, b: Tile) => b.likes - a.likes));
+
+      setLikedIds((prev) => {
+        const next = new Set(prev);
+        data.forEach((t: Tile) => {
+          if (t.likedBy?.includes(SESSION_ID)) {
+            next.add(t.id);
+          } else {
+            next.delete(t.id);
+          }
+        });
+        return next;
+      });
     } catch (err) {
       console.error("Error fetching tiles", err);
     }
@@ -145,7 +158,6 @@ const Gallery = ({ type }: GalleryProps) => {
                 <button
                   className={`btn-like${liked ? " liked" : ""}`}
                   onClick={() => handleLike(tile.id)}
-                  disabled={pending}
                   aria-label={liked ? "Unlike" : "Like"}
                 >
                   {liked ? "❤️" : "🤍"} {tile.likes}
