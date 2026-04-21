@@ -135,7 +135,7 @@ app.post("/like", async (req, res) => {
     res.json({ ok: true, likes: Math.max(0, updated.likes) });
   } catch (err) {
     console.error("ERROR /like", err);
-    res.status(500).json({ error: "server crash" });
+    res.status(500).json({ error: "server crash", details: err.message, stack: err.stack });
   }
 });
 
